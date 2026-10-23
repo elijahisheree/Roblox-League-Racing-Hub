@@ -1,1 +1,243 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roblox Racing Hub</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101820;
+      color: white;
+    }
+
+    header {
+      padding: 20px;
+      background: #17212d;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    header h2 { margin: 0; color: #ff3948; }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 8px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 90px 20px;
+      background: linear-gradient(135deg, #202f40, #101820);
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 8vw, 68px);
+      margin: 0 0 18px;
+      text-transform: uppercase;
+    }
+
+    .hero span { color: #ff3948; }
+
+    .hero p {
+      color: #c4cdd6;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-block;
+      margin: 12px 6px;
+      padding: 13px 20px;
+      background: #ff3948;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 45px 20px;
+    }
+
+    h2 { color: #ff3948; }
+
+    .card {
+      background: #1b2733;
+      padding: 24px;
+      margin: 15px 0;
+      border: 1px solid #344352;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      background: #101820;
+      color: white;
+      border: 1px solid #465565;
+      border-radius: 5px;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      font-size: 15px;
+    }
+
+    #result {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #17212d;
+      color: #b7c1cb;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>🏁 ROBLOX RACING HUB</h2>
+    <nav>
+      <a href="#leagues">Leagues</a>
+      <a href="#request">Livery Requests</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <h1>Roblox Racing <span>Hub</span></h1>
+    <p>Your home for Roblox motorsport.<br>
+       Discover leagues. Build your team. Race your way.</p>
+    <a class="button" href="#leagues">Explore Leagues</a>
+    <a class="button" href="#request">Request a Livery</a>
+  </div>
+
+  <section id="leagues">
+    <h2>🏆 Racing Leagues</h2>
+    <div class="card">
+      <h3>League Directory</h3>
+      <p>Are you running a Roblox racing league?</p>
+      <p>League listings will appear here as they are added.</p>
+      <p><strong>League owners:</strong> Contact the website owner
+      to request a listing.</p>
+    </div>
+  </section>
+
+  <section id="request">
+    <h2>🎨 Request a Custom Livery</h2>
+    <p>Tell us about your car and your ideal racing design.</p>
+
+    <form id="liveryForm">
+      <div class="card">
+        <label for="username">Roblox Username *</label>
+        <input id="username" required placeholder="Your Roblox username">
+
+        <label for="car">Game and Car *</label>
+        <input id="car" required placeholder="Which game and vehicle?">
+
+        <label for="colours">Preferred Colours *</label>
+        <input id="colours" required placeholder="e.g. red, black and white">
+
+        <label for="style">Design Style</label>
+        <select id="style">
+          <option>Professional motorsport</option>
+          <option>Aggressive racing</option>
+          <option>Retro</option>
+          <option>Minimalist</option>
+          <option>Surprise me</option>
+        </select>
+
+        <label for="details">Extra Details</label>
+        <textarea id="details"
+          placeholder="Car number, team name, sponsors and ideas..."></textarea>
+
+        <button class="button" type="submit">
+          Prepare My Request
+        </button>
+      </div>
+    </form>
+
+    <div class="card" id="output" hidden>
+      <h3>Your Livery Request</h3>
+      <p id="result"></p>
+      <button class="button" id="copyButton" type="button">
+        Copy Request
+      </button>
+      <p id="copyStatus" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>🏁 Roblox Racing Hub</p>
+    <p>Built for the grid. Driven by the community.</p>
+    <small>Community project, not affiliated with Roblox Corporation.</small>
+  </footer>
+
+  <script>
+    const form = document.getElementById("liveryForm");
+    const output = document.getElementById("output");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      result.textContent =
+        "ROBLOX RACING HUB - LIVERY REQUEST\n\n" +
+        "Roblox Username: " +
+        document.getElementById("username").value + "\n" +
+        "Game and Car: " +
+        document.getElementById("car").value + "\n" +
+        "Colours: " +
+        document.getElementById("colours").value + "\n" +
+        "Style: " +
+        document.getElementById("style").value + "\n" +
+        "Extra Details: " +
+        (document.getElementById("details").value || "None");
+
+      output.hidden = false;
+      output.scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("copyButton").addEventListener(
+      "click", async function() {
+        const status = document.getElementById("copyStatus");
+
+        try {
+          await navigator.clipboard.writeText(result.textContent);
+          status.textContent = "Request copied!";
+        } catch (error) {
+          status.textContent =
+            "Copy unavailable. Select and copy the request text above.";
+        }
+      }
+    );
+  </script>
+
+</body>
+</html>
+
